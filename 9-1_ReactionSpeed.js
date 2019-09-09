@@ -20,9 +20,12 @@ var status = {
 // 보통은 new Date()를 많이 사용한다.
 // var start_p = performance.now();
 
-screen.addEventListener('click', function() {
 
-    
+// screen은 비동기이기 때문에 클릭되는 순간 function(){}이 실행되고 할일을 마치면 호출스택에서 사라진다.
+// 그래서 변수를 바깥으로 빼야한다.
+var startTime;
+var endTime;
+screen.addEventListener('click', function() {
 
     // var endTime = new Date();
 
@@ -41,8 +44,6 @@ screen.addEventListener('click', function() {
 
     // classList.contains() 함수로 현재 클래스가 무엇인지 알 수 있다.
     console.log('screen.classList.contains(\'waiting\'): ', screen.classList.contains('waiting'));
-
-    var startTime;
 
     if ( screen.classList.contains('waiting') ) {
         console.log('클릭!');
@@ -63,7 +64,7 @@ screen.addEventListener('click', function() {
 
     } else if(screen.classList.contains('now')) {
 
-        var endTime = new Date();
+        endTime = new Date();
         console.log(startTime);
         console.log(endTime);
         console.log('ReactionSpeed: ', endTime - startTime , ' ms');
@@ -77,3 +78,32 @@ screen.addEventListener('click', function() {
     
 
 });
+
+
+
+
+// 호출스택
+// function d() {
+//     console.log('d');
+// }
+
+// function e() {
+//     console.log('e');
+// }
+
+
+// function a() {
+//     function b() {
+//         function c() {
+//             console.log('c');
+//         }
+//         c();
+//         console.log('b');
+//     }
+//     b();
+//      console.log('a');
+// }
+
+// d();
+// e();
+// a();
