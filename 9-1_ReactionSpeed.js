@@ -25,6 +25,10 @@ var status = {
 // 그래서 변수를 바깥으로 빼야한다.
 var startTime;
 var endTime;
+
+var timeHistory = [];
+var timeout;
+
 screen.addEventListener('click', function() {
 
     // var endTime = new Date();
@@ -48,26 +52,44 @@ screen.addEventListener('click', function() {
     if ( screen.classList.contains('waiting') ) {
         console.log('클릭!');
         screen.classList.remove('waiting');
-        screen.classList.add('ready');
+        screen.classList.add('ready'); // Red로 변경
         screen.textContent = '초록색이 되면 클릭하세요.';
 
-        setTimeout(function(){
+        timeout = setTimeout(function(){
             startTime = new Date();
             screen.click();
         }, Math.floor(Math.random() * 1000) + 2000 );
         
-    } else if(screen.classList.contains('ready')) {
+    } else if(screen.classList.contains('ready')) { // 준비 상태 (Red)
 
-        screen.classList.remove('ready');
-        screen.classList.add('now');
-        screen.textContent = '클릭하세요!';
+        if(!startTime){
+            clearTimeout(timeout);
 
-    } else if(screen.classList.contains('now')) {
+            screen.classList.remove('ready');
+            screen.classList.add('waiting');
+            screen.textContent = '너무 성급하시군요!';
+
+        } else {
+
+            screen.classList.remove('ready');
+            screen.classList.add('now');
+            screen.textContent = '클릭하세요!';
+
+        }
+
+        
+
+    } else if(screen.classList.contains('now')) { // Green
 
         endTime = new Date();
         console.log(startTime);
         console.log(endTime);
         console.log('ReactionSpeed: ', endTime - startTime , ' ms');
+        
+        timeHistory.push(endTime - startTime);
+
+        startTime = null;
+        endTime = null;
 
         screen.classList.remove('now');
         screen.classList.add('waiting');
