@@ -129,3 +129,29 @@ screen.addEventListener('click', function() {
 // d();
 // e();
 // a();
+
+
+// 9-5 재귀, 비동기와 호출 스택
+// LIFO(List in First out): 후입선출 
+// or FILO(First Last out)
+// 먼저 들어간 게 제일 나중에 나옴
+// 제일 나중에 들어간 게 제일 먼저 나옴
+// 아래와 같이 함수를 호출하면 호출스택에 쌓이게 되는데
+// 브라우저마다 최대 호출 스택 개수의 제한이 있으므로
+// 그 이상 쌓이게 되면 "Maximum call stack exceeded" 에러가 발생
+// function a(){
+//     a();
+// }
+
+// a();
+
+
+// 아래와 같이 작성하면 호출스택에 쌓이지 않고 호출할 때 마다 새로 스택에 쌓인다.
+// 자세하게 알아보려면 백그라운드와 이벤트 루프를 알아야한다.
+// function a() {
+//     setTimeout(function() {
+//         a();
+//     }, 0);
+// }
+
+// a();
